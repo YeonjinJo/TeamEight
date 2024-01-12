@@ -48,14 +48,15 @@ function searchHandler() {
     let searchCond = "empty";
     const special_pattern = /[`~!@#$%^&*|\\\'\";:\/?]/gi;
 
-    if(special_pattern.test(keyword)){
-      return alert('특수문자가 입력되었습니다.');
-    }
+
     node_list.forEach((node) => {
       if (node.checked) {
         searchCond = node.value;
         let checker = false;
         if (searchCond === "title") {
+          if(special_pattern.test(keyword)){
+            return alert('특수문자가 입력되었습니다.');
+          }
           for (let i = 0; i < data["results"]["length"]; i++) {
             const title = data["results"][i]["title"];
             const titleWordArray = title.split(" ");
@@ -73,6 +74,9 @@ function searchHandler() {
           }
         }
         if (searchCond === "content") {
+          if(special_pattern.test(keyword)){
+            return alert('특수문자가 입력되었습니다.');
+          }
           for (let i = 0; i < data["results"]["length"]; i++) {
             const idNum = data["results"][i]["id"];
             const poster = data["results"][i]["poster_path"];
@@ -92,7 +96,8 @@ function searchHandler() {
       }
     })
 
-    if (searchCond === "empty") {alert("검색 조건을 선택하세요.");}
+    if (searchCond === "empty") {alert("검색 조건을 선택하세요.");
+    }
   })
 }
 
