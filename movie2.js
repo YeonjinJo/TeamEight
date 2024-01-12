@@ -2,14 +2,20 @@ const options = {
   method: "GET",
   headers: {
     accept: "application/json",
-    Authorization: "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI2MjhhYzIzOGVmMTA2YjhmNGM2MGNlZjk2MjU5NWJjYiIsInN1YiI6IjY1OGU3OTNjZDdkY2QyMGQ2MGVhZjVjNSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.ISlfZIi8alvNiRWhBDbv27ZhCBfS-RadxHs-t4Fg0VA",
+    Authorization:
+      "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI2MjhhYzIzOGVmMTA2YjhmNGM2MGNlZjk2MjU5NWJjYiIsInN1YiI6IjY1OGU3OTNjZDdkY2QyMGQ2MGVhZjVjNSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.ISlfZIi8alvNiRWhBDbv27ZhCBfS-RadxHs-t4Fg0VA",
   },
 };
 
-const url = "https://api.themoviedb.org/3/movie/top_rated?language=en-US&page=1";
+const url =
+  "https://api.themoviedb.org/3/movie/top_rated?language=en-US&page=1";
 const base_url = "https://image.tmdb.org/t/p/w500";
 
-fetch(url, options).then((res) => res.json()).then((data) => {loadMovies(data)});
+fetch(url, options)
+  .then((res) => res.json())
+  .then((data) => {
+    loadMovies(data);
+  });
 
 function loadMovies(data) {
   for (let i = 0; i < data["results"]["length"]; i++) {
@@ -23,6 +29,7 @@ function loadMovies(data) {
       overview = str.concat(" (...)");
     }
 
+    const movieId = data["results"][i]["id"];
     const poster = data["results"][i]["poster_path"];
     const voteRate = data["results"][i]["vote_average"];
 
@@ -31,7 +38,7 @@ function loadMovies(data) {
       <div class="movie_title">${title}</div>
       <div class="movie_overview">${overview}</div>
       <div class="movie_title">${voteRate}</div>
-      <a href="info.html">
+      <a href="info.html?${movieId}">
         <img src="${base_url}${poster}" alt="Poster [${title}]" style="width: 100%;">
       </a>
     </div>`;
@@ -42,57 +49,69 @@ function loadMovies(data) {
 }
 
 function searchHandler() {
-  fetch(url, options).then((res) => res.json()).then((data) => {
-    const node_list = document.getElementsByName("searchCond");
-    const keyword = document.getElementById("search_input").value;
-    let searchCond = "empty";
+  fetch(url, options)
+    .then((res) => res.json())
+    .then((data) => {
+      const node_list = document.getElementsByName("searchCond");
+      const keyword = document.getElementById("search_input").value;
+      let searchCond = "empty";
 
-    node_list.forEach((node) => {
-      if (node.checked) {
-        searchCond = node.value;
-        let checker = false;
-        if (searchCond === "title") {
-          for (let i = 0; i < data["results"]["length"]; i++) {
-            const title = data["results"][i]["title"];
-            const titleWordArray = title.split(" ");
-            const result = titleWordArray.find(t => {return t === keyword;});
+      node_list.forEach((node) => {
+        if (node.checked) {
+          searchCond = node.value;
+          let checker = false;
+          if (searchCond === "title") {
+            for (let i = 0; i < data["results"]["length"]; i++) {
+              const title = data["results"][i]["title"];
+              const titleWordArray = title.split(" ");
+              const result = titleWordArray.find((t) => {
+                return t === keyword;
+              });
 
-            const idNum = data["results"][i]["id"];
-            const poster = data["results"][i]["poster_path"];
+              const idNum = data["results"][i]["id"];
+              const poster = data["results"][i]["poster_path"];
 
-            if (result) {
-              showModal(base_url, poster, title, idNum);
-              checker = true;
-            } 
-          }
-        }
-        if (searchCond === "content") {
-          for (let i = 0; i < data["results"]["length"]; i++) {
-            const idNum = data["results"][i]["id"];
-            const poster = data["results"][i]["poster_path"];
-
-            const title = data["results"][i]["title"];
-            const overview = data["results"][i]["overview"];
-            const overviewWordArray = overview.split(" ");
-            const result = overviewWordArray.find(t => {return t === keyword;});
-
-            if (result) {
-              showModal(base_url, poster, title, idNum);
-              checker = true;
+              if (result) {
+                showModal(base_url, poster, title, idNum);
+                checker = true;
+              }
             }
           }
-        }
-        if (!checker) {alert("검색 결과가 없습니다.");}
-      }
-    })
+          if (searchCond === "content") {
+            for (let i = 0; i < data["results"]["length"]; i++) {
+              const idNum = data["results"][i]["id"];
+              const poster = data["results"][i]["poster_path"];
 
-    if (searchCond === "empty") {alert("검색 조건을 선택하세요.");}
-  })
+              const title = data["results"][i]["title"];
+              const overview = data["results"][i]["overview"];
+              const overviewWordArray = overview.split(" ");
+              const result = overviewWordArray.find((t) => {
+                return t === keyword;
+              });
+
+              if (result) {
+                showModal(base_url, poster, title, idNum);
+                checker = true;
+              }
+            }
+          }
+          if (!checker) {
+            alert("검색 결과가 없습니다.");
+          }
+        }
+      });
+
+      if (searchCond === "empty") {
+        alert("검색 조건을 선택하세요.");
+      }
+    });
 }
 
 function showModal(base_url, poster, title, idNum) {
   const existingModal = document.querySelector(".modal");
-  if (existingModal) {existingModal.remove();}
+  if (existingModal) {
+    existingModal.remove();
+  }
 
   const modal = document.createElement("div");
   modal.className = "modal hidden";
@@ -118,5 +137,3 @@ function showModal(base_url, poster, title, idNum) {
   document.body.appendChild(modal);
   setTimeout(() => modal.classList.remove("hidden"), 0);
 }
-
-
