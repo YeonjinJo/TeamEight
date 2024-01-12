@@ -80,9 +80,11 @@ function searchHandler() {
           }
         }
         if (searchCond === "content") {
+
           if(special_pattern.test(keyword)){
             return alert('특수문자가 입력되었습니다.');
           }
+
           for (let i = 0; i < data["results"]["length"]; i++) {
             const idNum = data["results"][i]["id"];
             const poster = data["results"][i]["poster_path"];
