@@ -24,18 +24,29 @@ function detailMovie(data) {
   const genreString = movieGenres.join(', ');
 
   movieInfo.innerHTML = `
-  <div>
-    <p class="movie_id">ID: ${data.id}</p>
-    <h1 class="movie_title">${data.title}</h1>
-    <h3 class="movie_ogtitle">${data.original_title}</h3>
-    <a>
-    <img src="${base_url}${data.poster_path}" alt="Poster"></img>
-    </a>
-    <p class="movie_overview">Overview: ${data.overview}</p>
-    <p class="movie_genres">Genres: ${genreString}</p>
-    <p class="movie_date">Release Date: ${data.release_date}</p>
-    <p class="movie_runtime">Runnig Time: ${data.runtime}</p>
-  </div>`;
+  <div class="card mb-3">
+  <div class="row g-0">
+    <div class="col-md-4">
+      <img src="${base_url}${data.poster_path}" class="img-fluid rounded-start movieImg" alt="...">
+    </div>
+    <div class="col-md-8">
+      <div class="card-body movie_info_body">
+        <h1 class="card-title movie_title">${data.title}</h1>
+        <h5 class="movie_ogtitle">${data.original_title}</h5>
+        <p class="card-text movie_overview">Overview : <br>${data.overview}</p>
+        <p class="movie_genres">Genres : ${genreString}</p>
+        <p class="movie_date">Release Date : ${data.release_date}</p>
+        <p class="movie_runtime">Runnig Time : ${data.runtime}</p>
+        <p class="card-text movie_id"><small class="text-body-secondary">ID : ${data.id}</small></p>
+      </div>
+    </div>
+  </div>
+</div>`;
 
   movieContainer.appendChild(movieInfo);
 }
+
+const backMovieInfo = document.getElementById("backBtn")
+backMovieInfo.addEventListener("click", () => {
+  javascript:window.history.back();
+})

@@ -1,0 +1,29 @@
+.btn {
+    height: 50px;
+    width: 200px;
+    margin-bottom: 20px;
+    font-size: 20px;
+}
+
+.movieImg {
+    margin: 5px;
+    border-radius: 5px;
+}
+
+.movie_title {
+    font-size: 45px;
+}
+
+.movie_ogtitle {
+    font-size: 25px;
+    margin-bottom: 40px;
+}
+
+.movie_info_body {
+    margin: 10px;
+}
+
+.movie_overview {
+    font-size: 21px;
+    margin-bottom: 45px;
+}
