@@ -38,7 +38,7 @@ function loadMovies(data) {
       <div class="movie_title">${title}</div>
       <div class="movie_overview">${overview}</div>
       <div class="movie_title">${voteRate}</div>
-      <a href="info.html?${movieId}">
+      <a href="review.html?${movieId}">
         <img src="${base_url}${poster}" alt="Poster [${title}]" style="width: 100%;">
       </a>
     </div>`;
@@ -109,9 +109,6 @@ function searchHandler() {
 
 function showModal(base_url, poster, title, idNum) {
   const existingModal = document.querySelector(".modal");
-  if (existingModal) {
-    existingModal.remove();
-  }
   if (existingModal) {
     existingModal.remove();
   }

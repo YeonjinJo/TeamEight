@@ -17,6 +17,7 @@ fetch(`https://api.themoviedb.org/3/movie/${movieId}?language=en-US`, options)
   });
 
 function detailMovie(data) {
+  let movieContainer = document.querySelector(".movieInfoContainer");
   const movieInfo = document.createElement("div");
 
   const movieGenres = data.genres.map(genre => genre.name);
@@ -36,5 +37,5 @@ function detailMovie(data) {
     <p class="movie_runtime">Runnig Time: ${data.runtime}</p>
   </div>`;
 
-  document.body.appendChild(movieInfo);
+  movieContainer.appendChild(movieInfo);
 }
