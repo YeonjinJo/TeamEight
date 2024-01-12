@@ -117,13 +117,12 @@ input[type="radio"]:checked {
 
 .search {
   display: flex;
-  flex-direction: column;
+  width: 100%;
+  flex-direction: row;
   align-items: center;
   justify-content: center;
   margin-bottom: 30px;
   padding: 30px;
-  margin-left: 400px;
-  margin-right: 400px;
 }
 
 .content_group {
@@ -214,6 +213,20 @@ input[type="radio"]:checked {
       margin-bottom: 30px;
       font-size: 15px;
     }
+  }
+  .search {
+    display: flex;
+    width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+    flex-direction: row;
+    align-items: center;
+  }
+  #search_input {
+    width: 200px;
+    padding: 5px;
+    margin-left: 0;
+    margin-right: 0;
   }
 }
 

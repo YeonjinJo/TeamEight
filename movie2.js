@@ -11,11 +11,13 @@ const url =
   "https://api.themoviedb.org/3/movie/top_rated?language=en-US&page=1";
 const base_url = "https://image.tmdb.org/t/p/w500";
 
-fetch(url, options)
-  .then((res) => res.json())
-  .then((data) => {
-    loadMovies(data);
-  });
+window.onload = function () {
+  fetch(url, options)
+    .then((res) => res.json())
+    .then((data) => {
+      loadMovies(data);
+    });
+};
 
 function loadMovies(data) {
   for (let i = 0; i < data["results"]["length"]; i++) {
