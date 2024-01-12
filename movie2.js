@@ -112,6 +112,9 @@ function showModal(base_url, poster, title, idNum) {
   if (existingModal) {
     existingModal.remove();
   }
+  if (existingModal) {
+    existingModal.remove();
+  }
 
   const modal = document.createElement("div");
   modal.className = "modal hidden";
