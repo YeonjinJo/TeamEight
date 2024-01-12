@@ -48,50 +48,54 @@ function loadMovies(data) {
 }
 
 function searchHandler() {
-  fetch(url, options)
-    .then((res) => res.json())
-    .then((data) => {
-      const node_list = document.getElementsByName("searchCond");
-      const keyword = document.getElementById("search_input").value;
-      let searchCond = "empty";
+  fetch(url, options).then((res) => res.json()).then((data) => {
+    const node_list = document.getElementsByName("searchCond");
+    const keyword = document.getElementById("search_input").value;
+    let searchCond = "empty";
+    const special_pattern = /[`~!@#$%^&*|\\\'\";:\/?]/gi;
 
-      node_list.forEach((node) => {
-        if (node.checked) {
-          searchCond = node.value;
-          let checker = false;
-          if (searchCond === "title") {
-            for (let i = 0; i < data["results"]["length"]; i++) {
-              const title = data["results"][i]["title"];
-              const titleWordArray = title.split(" ");
-              const result = titleWordArray.find((t) => {
-                return t === keyword;
-              });
 
-              const idNum = data["results"][i]["id"];
-              const poster = data["results"][i]["poster_path"];
-
-              if (result) {
-                showModal(base_url, poster, title, idNum);
-                checker = true;
-              }
-            }
+    node_list.forEach((node) => {
+      if (node.checked) {
+        searchCond = node.value;
+        let checker = false;
+        if (searchCond === "title") {
+          if(special_pattern.test(keyword)){
+            return alert('특수문자가 입력되었습니다.');
           }
-          if (searchCond === "content") {
-            for (let i = 0; i < data["results"]["length"]; i++) {
-              const idNum = data["results"][i]["id"];
-              const poster = data["results"][i]["poster_path"];
+          for (let i = 0; i < data["results"]["length"]; i++) {
+            const title = data["results"][i]["title"];
+            const titleWordArray = title.split(" ");
+            const result = titleWordArray.find(t => {return t === keyword;});
 
-              const title = data["results"][i]["title"];
-              const overview = data["results"][i]["overview"];
-              const overviewWordArray = overview.split(" ");
-              const result = overviewWordArray.find((t) => {
-                return t === keyword;
-              });
+            const idNum = data["results"][i]["id"];
+            const poster = data["results"][i]["poster_path"];
+   
 
-              if (result) {
-                showModal(base_url, poster, title, idNum);
-                checker = true;
-              }
+      
+            if (result) {
+              showModal(base_url, poster, title, idNum);
+              checker = true;
+            } 
+          }
+        }
+        if (searchCond === "content") {
+          if(special_pattern.test(keyword)){
+            return alert('특수문자가 입력되었습니다.');
+          }
+          for (let i = 0; i < data["results"]["length"]; i++) {
+            const idNum = data["results"][i]["id"];
+            const poster = data["results"][i]["poster_path"];
+
+            const title = data["results"][i]["title"];
+            const overview = data["results"][i]["overview"];
+            const overviewWordArray = overview.split(" ");
+            const result = overviewWordArray.find(t => {return t === keyword;});
+
+            if (result) {
+              showModal(base_url, poster, title, idNum);
+              checker = true;
+
             }
           }
           if (!checker) {
@@ -100,10 +104,10 @@ function searchHandler() {
         }
       });
 
-      if (searchCond === "empty") {
-        alert("검색 조건을 선택하세요.");
-      }
-    });
+
+    if (searchCond === "empty") {alert("검색 조건을 선택하세요.");
+    }
+  })
 }
 
 function showModal(base_url, poster, title, idNum) {
