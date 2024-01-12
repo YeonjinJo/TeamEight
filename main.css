@@ -169,11 +169,15 @@ input[type="radio"]:checked {
       "d18  d19";
 
     .movie_title {
-      font-size: 16px;
+      font-size: 15px;
     }
 
     .movie_overview {
-      font-size: 12px;
+      font-size: 13px;
+    }
+    .movie_rate {
+      margin-bottom: 30px;
+      font-size: 16px;
     }
   }
 }
