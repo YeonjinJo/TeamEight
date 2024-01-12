@@ -2,14 +2,20 @@ const options = {
   method: "GET",
   headers: {
     accept: "application/json",
-    Authorization: "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI2MjhhYzIzOGVmMTA2YjhmNGM2MGNlZjk2MjU5NWJjYiIsInN1YiI6IjY1OGU3OTNjZDdkY2QyMGQ2MGVhZjVjNSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.ISlfZIi8alvNiRWhBDbv27ZhCBfS-RadxHs-t4Fg0VA",
+    Authorization:
+      "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI2MjhhYzIzOGVmMTA2YjhmNGM2MGNlZjk2MjU5NWJjYiIsInN1YiI6IjY1OGU3OTNjZDdkY2QyMGQ2MGVhZjVjNSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.ISlfZIi8alvNiRWhBDbv27ZhCBfS-RadxHs-t4Fg0VA",
   },
 };
 
-const url = "https://api.themoviedb.org/3/movie/top_rated?language=en-US&page=1";
+const url =
+  "https://api.themoviedb.org/3/movie/top_rated?language=en-US&page=1";
 const base_url = "https://image.tmdb.org/t/p/w500";
 
-fetch(url, options).then((res) => res.json()).then((data) => {loadMovies(data)});
+fetch(url, options)
+  .then((res) => res.json())
+  .then((data) => {
+    loadMovies(data);
+  });
 
 function loadMovies(data) {
   for (let i = 0; i < data["results"]["length"]; i++) {
@@ -30,8 +36,8 @@ function loadMovies(data) {
     <div class="content_${i}" id="card_${i}" style="grid-area: d${i};">
       <div class="movie_title">${title}</div>
       <div class="movie_overview">${overview}</div>
-      <div class="movie_title">${voteRate}</div>
-      <a href="info.html">
+      <div class="movie_rate">Rating: ${voteRate}</div>
+      <a href="info.html" class="movie_poster">
         <img src="${base_url}${poster}" alt="Poster [${title}]" style="width: 100%;">
       </a>
     </div>`;
@@ -74,7 +80,11 @@ function searchHandler() {
           }
         }
         if (searchCond === "content") {
-          
+
+          if(special_pattern.test(keyword)){
+            return alert('특수문자가 입력되었습니다.');
+          }
+
           for (let i = 0; i < data["results"]["length"]; i++) {
             const idNum = data["results"][i]["id"];
             const poster = data["results"][i]["poster_path"];
@@ -87,12 +97,15 @@ function searchHandler() {
             if (result) {
               showModal(base_url, poster, title, idNum);
               checker = true;
+
             }
           }
+          if (!checker) {
+            alert("검색 결과가 없습니다.");
+          }
         }
-        if (!checker) {alert("검색 결과가 없습니다.");}
-      }
-    })
+      });
+
 
     if (searchCond === "empty") {alert("검색 조건을 선택하세요.");
     }
@@ -101,7 +114,9 @@ function searchHandler() {
 
 function showModal(base_url, poster, title, idNum) {
   const existingModal = document.querySelector(".modal");
-  if (existingModal) {existingModal.remove();}
+  if (existingModal) {
+    existingModal.remove();
+  }
 
   const modal = document.createElement("div");
   modal.className = "modal hidden";
@@ -127,5 +142,3 @@ function showModal(base_url, poster, title, idNum) {
   document.body.appendChild(modal);
   setTimeout(() => modal.classList.remove("hidden"), 0);
 }
-
-
