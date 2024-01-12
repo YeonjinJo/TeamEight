@@ -1,20 +1,28 @@
 * {
-  font-family: "Oswald", sans-serif;
+  font-family: "Merriweather", serif;
+}
+
+.reload {
+  cursor: pointer;
+  transition: font-size 1.8s;
+}
+
+.reload:hover {
+  filter: brightness(150%);
+  font-size: 2em;
 }
 
 .title {
   background-image: url("title.png");
   background-position: center;
   background-size: cover;
-
-  color: white;
+  color: whitesmoke;
   height: 300px;
   display: flex;
+  text-shadow: 1px 1px 0px black;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  text-shadow: 5px 5px 5px 0px black;
-
   margin-bottom: 50px;
 }
 
@@ -23,21 +31,82 @@
   height: 50px;
   background-color: transparent;
   border: none;
-  color: white;
+  color: #dae7e7;
   font-size: 18px;
-  font-weight: bold;
+  font-weight: bolder;
   border-radius: 5px;
-
   border: 2px solid white;
   margin-top: 20px;
 }
 
-input[type="radio" i] {
+.title > button:hover {
+  background-color: white;
+  opacity: 0.8;
+  color: black;
+}
+
+.radio-text {
+  margin-left: 5px;
+  margin-right: 10px;
+}
+
+#search_button {
+  height: 35px;
+  width: 60px;
+  margin-bottom: 3px;
+  background-color: #e9c485;
+  color: black;
+}
+
+#search_button:hover {
+  filter: brightness(110%);
+  color: ivory;
+}
+
+input[type="radio"] {
   margin-left: 10px;
+  position: relative;
+  /* 다른 라디오 버튼에는 적용되지 않는 기본 스타일 제거 */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  /* 호버 효과 */
+  transition: background-color 0.3s;
+}
+
+/* 가상의 체크 마크를 생성 */
+input[type="radio"]::before {
+  content: "";
+  position: absolute;
+  transform: translate(-100%, -100%);
+  margin-right: 15px;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background-color: transparent;
+  border: 2px solid #ffa500; /* 체크 마크 색상 */
+  box-sizing: border-box;
+  transition: background-color 0.3s;
+}
+
+/* 라디오 버튼 호버 효과 */
+input[type="radio"]:hover::before {
+  background-color: #ffa500; /* 호버 시 색상 변경 */
+}
+
+/* 체크된 라디오 버튼 스타일 */
+input[type="radio"]:checked::before {
+  background-color: #ffa500; /* 체크 시 색상 변경 */
+}
+
+/* 체크된 상태에서 가상의 체크 마크를 숨김 */
+input[type="radio"]:checked {
+  color: transparent;
 }
 
 #search_input {
   width: 300px;
+  padding: 5px;
   margin-left: 10px;
   margin-right: 10px;
 }
@@ -51,28 +120,30 @@ input[type="radio" i] {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-
-  margin-bottom: 50px;
+  margin-bottom: 30px;
+  padding: 30px;
+  margin-left: 400px;
+  margin-right: 400px;
 }
 
 .content_group {
   width: 90%;
   margin: 0 auto 50px auto;
-
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  background-color: rgb(255, 255, 255, 0.6);
 }
 
 .grid0 {
   display: grid;
   width: 100%;
-
+  padding: 50px;
+  border-radius: 3%;
   grid-template-columns: repeat(4, 1fr);
   grid-template-rows: repeat(5, 1fr);
   grid-gap: 50px;
-
   grid-template-areas:
     "d0   d1   d2   d3"
     "d4   d5   d6   d7"
@@ -81,18 +152,81 @@ input[type="radio" i] {
     "d16  d17  d18  d19";
 }
 
+@media (max-width: 768px) {
+  .grid0 {
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 20px;
+    grid-template-areas:
+      "d0   d1"
+      "d2   d3"
+      "d4   d5"
+      "d6   d7"
+      "d8   d9"
+      "d10  d11"
+      "d12  d13"
+      "d14  d15"
+      "d16  d17"
+      "d18  d19";
+
+    .movie_title {
+      font-size: 15px;
+    }
+
+    .movie_overview {
+      font-size: 13px;
+    }
+    .movie_rate {
+      margin-bottom: 30px;
+      font-size: 16px;
+    }
+  }
+}
+
 .movie_title {
   text-align: center;
-  font-size: 16px;
+  font-size: 18px;
   font-weight: bold;
   height: 30px;
 
-  margin-bottom: 10px;
+  margin-bottom: 28px;
+}
+
+.movie_poster:hover {
+  opacity: 1;
+  -webkit-animation: flash 1.5s;
+  animation: flash 1.5s;
+}
+@-webkit-keyframes flash {
+  0% {
+    opacity: 0.4;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes flash {
+  0% {
+    opacity: 0.4;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 
 .movie_overview {
   text-align: justify;
+  font-size: 16px;
   height: 200px;
+  margin-bottom: 20px;
+}
+
+.movie_rate {
+  text-align: center;
+  font-size: 18px;
+  font-weight: bold;
+  height: 30px;
+
+  margin-bottom: 20px;
 }
 
 .modal {
@@ -140,9 +274,122 @@ input[type="radio" i] {
 }
 
 @keyframes zoomAndRotate {
-  from {transform: scale(0) rotateY(0deg);}
-  to {transform: scale(1) rotateY(360deg);}
+  from {
+    transform: scale(0) rotateY(0deg);
+  }
+  to {
+    transform: scale(1) rotateY(360deg);
+  }
 }
 
-.zoomIn {animation: zoomAndRotate 0.5s ease forwards;}
-.hidden {visibility: hidden;}
+.zoomIn {
+  animation: zoomAndRotate 0.5s ease forwards;
+}
+.hidden {
+  visibility: hidden;
+}
+
+body {
+  position: relative;
+  z-index: 1;
+}
+
+/* 낙엽 css */
+.leaves {
+  position: fixed;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: -1;
+}
+.leaves .set {
+  position: absolute;
+  width: 100%;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+}
+.leaves .set div {
+  position: absolute;
+  display: block;
+}
+.leaves .set div:nth-child(1) {
+  left: 20%;
+  animation: animate 15s linear infinite;
+  animation-delay: -7s;
+}
+.leaves .set div:nth-child(2) {
+  left: 50%;
+  animation: animate 20s linear infinite;
+  animation-delay: -5s;
+}
+.leaves .set div:nth-child(2) {
+  left: 50%;
+  animation: animate 20s linear infinite;
+  animation-delay: -5s;
+}
+.leaves .set div:nth-child(3) {
+  left: 70%;
+  animation: animate 20s linear infinite;
+  animation-delay: 0s;
+}
+.leaves .set div:nth-child(4) {
+  left: 0%;
+  animation: animate 15s linear infinite;
+  animation-delay: -5s;
+}
+.leaves .set div:nth-child(5) {
+  left: 85%;
+  animation: animate 18s linear infinite;
+  animation-delay: -10s;
+}
+.leaves .set div:nth-child(6) {
+  left: 0%;
+  animation: animate 12s linear infinite;
+}
+.leaves .set div:nth-child(7) {
+  left: 15%;
+  animation: animate 14s linear infinite;
+}
+.leaves .set div:nth-child(8) {
+  left: 60%;
+  animation: animate 15s linear infinite;
+}
+@keyframes animate {
+  0% {
+    opacity: 0;
+    top: -10%;
+    transform: translateX(20px) rotate(0deg);
+  }
+  10% {
+    opacity: 1;
+  }
+  20% {
+    transform: translateX(-20px) rotate(45deg);
+  }
+  40% {
+    transform: translateX(-20px) rotate(90deg);
+  }
+  60% {
+    transform: translateX(20px) rotate(180deg);
+  }
+  80% {
+    transform: translateX(-20px) rotate(180deg);
+  }
+  100% {
+    top: 110%;
+    transform: translateX(-20px) rotate(225deg);
+  }
+}
+.set2 {
+  transform: scale(2) rotateY(180deg);
+  filter: blur(2px);
+}
+.set3 {
+  transform: scale(0.8) rotateX(180deg);
+  filter: blur(4px);
+}
