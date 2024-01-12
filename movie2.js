@@ -46,7 +46,11 @@ function searchHandler() {
     const node_list = document.getElementsByName("searchCond");
     const keyword = document.getElementById("search_input").value;
     let searchCond = "empty";
+    const special_pattern = /[`~!@#$%^&*|\\\'\";:\/?]/gi;
 
+    if(special_pattern.test(keyword)){
+      return alert('특수문자가 입력되었습니다.');
+    }
     node_list.forEach((node) => {
       if (node.checked) {
         searchCond = node.value;
@@ -59,7 +63,9 @@ function searchHandler() {
 
             const idNum = data["results"][i]["id"];
             const poster = data["results"][i]["poster_path"];
+   
 
+      
             if (result) {
               showModal(base_url, poster, title, idNum);
               checker = true;
