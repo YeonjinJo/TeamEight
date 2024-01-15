@@ -36,7 +36,7 @@ function detailMovie(data) {
         <p class="card-text movie_overview">Overview : <br>${data.overview}</p>
         <p class="movie_genres">Genres : ${genreString}</p>
         <p class="movie_date">Release Date : ${data.release_date}</p>
-        <p class="movie_runtime">Runnig Time : ${data.runtime}</p>
+        <p class="movie_runtime">Runnig Time : ${data.runtime} min</p>
         <p class="card-text movie_id"><small class="text-body-secondary">ID : ${data.id}</small></p>
       </div>
     </div>

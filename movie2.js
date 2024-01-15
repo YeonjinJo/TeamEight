@@ -39,7 +39,7 @@ function loadMovies(data) {
     <div class="content_${i}" id="card_${i}" style="grid-area: d${i};">
       <div class="movie_title">${title}</div>
       <div class="movie_overview">${overview}</div>
-      <div class="movie_title">${voteRate}</div>
+      <div class="movie_rate">${voteRate}</div>
       <a href="review.html?${movieId}">
         <img src="${base_url}${poster}" alt="Poster [${title}]" style="width: 100%;">
       </a>
