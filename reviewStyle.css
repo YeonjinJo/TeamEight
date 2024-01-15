@@ -1,0 +1,592 @@
+* {
+  font-family: "Oswald", sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: black;
+  padding: 2rem;
+}
+
+@media screen and (max-width: 1050px) {
+  .gridContainer {
+    display: grid;
+    grid-template-rows: 1fr 1fr 1fr;
+    gap: 2rem;
+    grid-template-areas:
+      "info"
+      "review"
+      "weather";
+  }
+}
+
+@media screen and (min-width: 1050px) {
+  .gridContainer {
+    display: grid;
+    grid-template-columns: 7fr 3fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 2rem;
+    grid-template-areas:
+      "info    weather"
+      "review  weather";
+  }
+}
+
+#section1 {
+  grid-area: info;
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 20px;
+}
+
+#section2 {
+  grid-area: review;
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 20px;
+}
+
+#section3 {
+  grid-area: weather;
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 20px;
+}
+
+h1 {
+  text-align: center;
+  line-height: 6rem;
+  text-transform: capitalize;
+  font-size: 4rem;
+  margin: 0 auto;
+}
+
+.section {
+  padding: 5rem 0;
+}
+
+main {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+}
+
+.sectionCenter {
+  width: 100%;
+  margin: 0 auto;
+  background: white;
+  border: 0.4rem solid black;
+  border-radius: 0.5rem;
+  transition: all 0.3s linear;
+  padding: 2rem;
+}
+
+.alert {
+  margin-bottom: 1rem;
+  height: 2rem;
+  display: grid;
+  align-items: center;
+  text-align: center;
+  font-size: 1.2rem;
+  border-radius: 0.25rem;
+  margin-top: 1rem;
+  color: #fff;
+  background: #333;
+  padding: 0.5px;
+  box-sizing: border-box;
+}
+
+.reviewForm h3 {
+  color: black;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.formControl {
+  display: flex;
+  justify-content: center;
+}
+
+#review {
+  cursor: text;
+  padding: 0.25rem;
+  padding-left: 1rem;
+  background: white;
+  border: 0.1rem solid black;
+  border-top-left-radius: 0.5rem;
+  border-bottom-left-radius: 0.5rem;
+  border-right-color: transparent;
+  font-size: 1rem;
+  flex: 1 0 auto;
+  color: black;
+}
+
+#review::placeholder {
+  color: black;
+}
+
+#reviewPW {
+  cursor: text;
+  background: white;
+  color: black;
+  border: 0.1rem solid black;
+  border-left-color: transparent;
+  border-right-color: transparent;
+  flex: 0.1 0 auto;
+
+  font-size: 1rem;
+}
+
+#reviewPW {
+  cursor: text;
+  background: white;
+  padding-left: 0.3rem;
+  color: black;
+  border: 0.1rem solid black;
+  border-left-color: black;
+  border-right-color: transparent;
+  flex: 0.1 0 auto;
+
+  font-size: 1rem;
+}
+
+.submitButton {
+  background: #333;
+  border: 0.1rem solid black;
+  border-left-color: transparent;
+  flex: 0 0 5rem;
+  border-top-right-radius: 0.5rem;
+  border-bottom-right-radius: 0.5rem;
+  cursor: pointer;
+  transition: all 0.3s linear;
+  font-size: 16px;
+  color: #fff;
+}
+
+.submitButton:hover {
+  background: #fff;
+  color: black;
+}
+
+.reviewContainer {
+  margin-top: 2rem;
+  transition: all 0.3s linear;
+  visibility: hidden;
+}
+
+.showContainer {
+  visibility: visible;
+}
+
+.reviewItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+  transition: all 0.3s linear;
+  padding: 0.25rem 1rem;
+  border-radius: 0.5rem;
+  text-transform: capitalize;
+}
+
+.reviewItem:hover {
+  color: black;
+  background: lightgray;
+}
+
+.reviewItem:hover .reviewContent {
+  color: black;
+}
+
+.reviewContent {
+  margin-bottom: 0;
+  color: black;
+  transition: all 0.3s linear;
+}
+
+#backBtn {
+  width: 8rem;
+  height: 3rem;
+  font-size: 16px;
+  margin: 0.5rem 0.5rem 0 0.5rem;
+  margin-bottom: 15px;
+  padding: 5px;
+  border: none;
+  outline: none;
+  color: #fff;
+  cursor: pointer;
+  position: relative;
+  z-index: 0;
+  border-radius: 12px;
+}
+#backBtn::after {
+  content: "";
+  z-index: -1;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: #333;
+  left: 0;
+  top: 0;
+  border-radius: 10px;
+}
+#backBtn::before {
+  content: "";
+  background: linear-gradient(
+    45deg,
+    #ff0000,
+    #ff7300,
+    #fffb00,
+    #48ff00,
+    #00ffd5,
+    #002bff,
+    #ff00c8,
+    #ff0000
+  );
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  background-size: 600%;
+  z-index: -1;
+  width: calc(100% + 4px);
+  height: calc(100% + 4px);
+  filter: blur(8px);
+  animation: glowing 20s linear infinite;
+  transition: opacity 0.3s ease-in-out;
+  border-radius: 10px;
+  opacity: 0;
+}
+
+@keyframes glowing {
+  0% {
+    background-position: 0 0;
+  }
+  50% {
+    background-position: 400% 0;
+  }
+  100% {
+    background-position: 0 0;
+  }
+}
+
+/* hover */
+#backBtn::before {
+  opacity: 1;
+}
+
+#backBtn::after {
+  background: transparent;
+}
+#backBtn:active {
+  color: #000;
+  font-weight: bold;
+}
+
+.editButton,
+.deleteButton {
+  width: 3rem;
+  height: 1.5rem;
+  font-size: 0.8rem;
+  margin-right: 0.2rm;
+  border: none;
+  outline: none;
+  color: #fff;
+  cursor: pointer;
+  position: relative;
+  z-index: 0;
+  border-radius: 12px;
+}
+.editButton::after,
+.deleteButton::after {
+  content: "";
+  z-index: -1;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: #333;
+  left: 0;
+  top: 0;
+  border-radius: 10px;
+}
+.editButton::before,
+.deleteButton::before {
+  content: "";
+  background: linear-gradient(
+    45deg,
+    #ff0000,
+    #ff7300,
+    #fffb00,
+    #48ff00,
+    #00ffd5,
+    #002bff,
+    #ff00c8,
+    #ff0000
+  );
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  background-size: 600%;
+  z-index: -1;
+  width: calc(100% + 4px);
+  height: calc(100% + 4px);
+  filter: blur(8px);
+  animation: glowing 20s linear infinite;
+  transition: opacity 0.3s ease-in-out;
+  border-radius: 10px;
+  opacity: 0;
+}
+
+@keyframes glowing {
+  0% {
+    background-position: 0 0;
+  }
+  50% {
+    background-position: 400% 0;
+  }
+  100% {
+    background-position: 0 0;
+  }
+}
+
+/* hover */
+.editButton:hover::before,
+.deleteButton:hover::before {
+  opacity: 1;
+}
+
+.editButton:hover::after,
+.deleteButton:hover::after {
+  background: transparent;
+}
+
+.editButton:active,
+.deleteButton:active {
+  color: #000;
+  font-weight: bold;
+}
+
+.weatherViewSeoul {
+  width: 5rem;
+  height: 3rem;
+  font-size: 1.5rem;
+  margin: 0.5rem 0.5rem 0 0.5rem;
+  border: none;
+  outline: none;
+  color: #fff;
+  cursor: pointer;
+  position: relative;
+  z-index: 0;
+  border-radius: 12px;
+}
+.weatherViewSeoul::after {
+  content: "";
+  z-index: -1;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: #333;
+  left: 0;
+  top: 0;
+  border-radius: 10px;
+}
+
+.weatherViewSeoul::before {
+  content: "";
+  background: linear-gradient(
+    45deg,
+    #ff0000,
+    #ff7300,
+    #fffb00,
+    #48ff00,
+    #00ffd5,
+    #002bff,
+    #ff00c8,
+    #ff0000
+  );
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  background-size: 600%;
+  z-index: -1;
+  width: calc(100% + 4px);
+  height: calc(100% + 4px);
+  filter: blur(8px);
+  animation: glowing 20s linear infinite;
+  transition: opacity 0.3s ease-in-out;
+  border-radius: 10px;
+  opacity: 0;
+}
+
+@keyframes glowing {
+  0% {
+    background-position: 0 0;
+  }
+  50% {
+    background-position: 400% 0;
+  }
+  100% {
+    background-position: 0 0;
+  }
+}
+
+/* hover */
+.weatherViewSeoul:hover::before {
+  opacity: 1;
+}
+
+.weatherViewSeoul:active::after {
+  background: transparent;
+}
+
+.weatherViewSeoul:active {
+  color: #000;
+  font-weight: bold;
+}
+.weatherViewDaegu {
+  width: 5rem;
+  height: 3rem;
+  font-size: 1.5rem;
+  margin: 0.5rem 0.5rem 0 0.5rem;
+  border: none;
+  outline: none;
+  color: #fff;
+  cursor: pointer;
+  position: relative;
+  z-index: 0;
+  border-radius: 12px;
+}
+.weatherViewDaegu::after {
+  content: "";
+  z-index: -1;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: #333;
+  left: 0;
+  top: 0;
+  border-radius: 10px;
+}
+
+.weatherViewDaegu::before {
+  content: "";
+  background: linear-gradient(
+    45deg,
+    #ff0000,
+    #ff7300,
+    #fffb00,
+    #48ff00,
+    #00ffd5,
+    #002bff,
+    #ff00c8,
+    #ff0000
+  );
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  background-size: 600%;
+  z-index: -1;
+  width: calc(100% + 4px);
+  height: calc(100% + 4px);
+  filter: blur(8px);
+  animation: glowing 20s linear infinite;
+  transition: opacity 0.3s ease-in-out;
+  border-radius: 10px;
+  opacity: 0;
+}
+
+@keyframes glowing {
+  0% {
+    background-position: 0 0;
+  }
+  50% {
+    background-position: 400% 0;
+  }
+  100% {
+    background-position: 0 0;
+  }
+}
+
+/* hover */
+.weatherViewDaegu:hover::before {
+  opacity: 1;
+}
+
+.weatherViewDaegu:active::after {
+  background: transparent;
+}
+
+.weatherViewDaegu:active {
+  color: #000;
+  font-weight: bold;
+}
+
+.weatherButtonGroup {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.weatherList p {
+  font-size: 0.8rem;
+  margin-top: 0.5rem;
+}
+
+.snow-warp {
+  height: 100vh;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  z-index: -1;
+}
+
+.snow,
+.snow::after,
+.snow::before {
+  content: "";
+  position: absolute;
+  top: -500px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: radial-gradient(4px 4px at 100px 50px, #fff, transparent),
+    radial-gradient(6px 6px at 200px 150px, #fff, transparent),
+    radial-gradient(3px 3px at 300px 250px, #fff, transparent),
+    radial-gradient(4px 4px at 400px 350px, #fff, transparent),
+    radial-gradient(6px 6px at 60px 100px, #fff, transparent),
+    radial-gradient(3px 3px at 50px 200px, #fff, transparent),
+    radial-gradient(4px 4px at 150px 300px, #fff, transparent),
+    radial-gradient(6px 6px at 250px 400px, #fff, transparent),
+    radial-gradient(3px 3px at 350px 500px, #fff, transparent),
+    radial-gradient(4px 4px at 450px 300px, #fff, transparent),
+    radial-gradient(7px 6px at 550px 400px, #fff, transparent),
+    radial-gradient(7px 6px at 10px 400px, #fff, transparent),
+    radial-gradient(7px 6px at 13px 200px, #fff, transparent),
+    radial-gradient(2px 3px at 650px 230px, #fff, transparent);
+  background-size: 650px 650px;
+  animation: snowAnim 3s linear;
+  animation-iteration-count: infinite;
+  z-index: -2;
+}
+
+.snow::after {
+  margin-left: -250px;
+  opacity: 0.5;
+  filter: blur(2px);
+  animation-direction: reverse;
+  animation-duration: 6s;
+}
+
+.snow::before {
+  margin-left: -350px;
+  opacity: 0.7;
+  filter: blur(1px);
+  animation-direction: reverse;
+  animation-duration: 9s;
+}
+
+@keyframes snowAnim {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(500px);
+  }
+}
