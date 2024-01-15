@@ -12,7 +12,6 @@ const movieId = location.href.split("?")[1];
 fetch(`https://api.themoviedb.org/3/movie/${movieId}?language=en-US`, options)
   .then((response) => response.json())
   .then((data) => {
-    console.log(data);
     detailMovie(data);
   });
 

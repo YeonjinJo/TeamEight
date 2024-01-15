@@ -57,12 +57,16 @@ function searchHandler() {
       const node_list = document.getElementsByName("searchCond");
       const keyword = document.getElementById("search_input").value;
       let searchCond = "empty";
+      const special_pattern = /[`~!@#$%^&*|\\\'\";:\/?]/gi;
 
       node_list.forEach((node) => {
         if (node.checked) {
           searchCond = node.value;
           let checker = false;
           if (searchCond === "title") {
+            if (special_pattern.test(keyword)) {
+              return alert("특수문자가 입력되었습니다.");
+            }
             for (let i = 0; i < data["results"]["length"]; i++) {
               const title = data["results"][i]["title"];
               const titleWordArray = title.split(" ");
@@ -80,6 +84,10 @@ function searchHandler() {
             }
           }
           if (searchCond === "content") {
+            if (special_pattern.test(keyword)) {
+              return alert("특수문자가 입력되었습니다.");
+            }
+
             for (let i = 0; i < data["results"]["length"]; i++) {
               const idNum = data["results"][i]["id"];
               const poster = data["results"][i]["poster_path"];
@@ -96,9 +104,9 @@ function searchHandler() {
                 checker = true;
               }
             }
-          }
-          if (!checker) {
-            alert("검색 결과가 없습니다.");
+            if (!checker) {
+              alert("검색 결과가 없습니다.");
+            }
           }
         }
       });
