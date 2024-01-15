@@ -89,8 +89,8 @@ main {
   font-size: 1.2rem;
   border-radius: 0.25rem;
   margin-top: 1rem;
-  color: black;
-  background: lightpink;
+  color: #fff;
+  background: #333;
 }
 
 .reviewForm h3 {
@@ -147,7 +147,7 @@ main {
 }
 
 .submitButton {
-  background: lightpink;
+  background: #333;
   border: 0.1rem solid black;
   border-left-color: transparent;
   flex: 0 0 5rem;
@@ -156,10 +156,11 @@ main {
   cursor: pointer;
   transition: all 0.3s linear;
   font-size: 16px;
+  color: #fff;
 }
 
 .submitButton:hover {
-  background: lightsteelblue;
+  background: #fff;
   color: black;
 }
 
