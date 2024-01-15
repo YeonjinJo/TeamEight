@@ -58,16 +58,23 @@
     </div>
   </section>
 
-  <div class="search" style="display: none">
-    <a onsubmit="return false;">
-      <input type="radio" id="serch_cond1" name="searchCond" value="title" />
-      <span class="radio-text">Title</span>
-      <input type="radio" id="serch_cond2" name="searchCond" value="content" />
-      <span class="radio-text">Content</span>
-      <input type="text" id="search_input" name="search_input" placeholder="검색어를 입력하세요." />
-
-      <span style="color:#aaa;" id="counter">(0 / 20)</span>
-      <button type="button" class="btn btn-primary" id="search_button" value="검색">검색</button>
+    <div class="search" style="display: flex">
+      <a onsubmit="return false;">
+        <input type="radio" id="serch_cond1" name="searchCond" value="title" />
+        <span class="radio-text">Title</span>
+        <input
+          type="radio"
+          id="serch_cond2"
+          name="searchCond"
+          value="content"
+        />
+        <span class="radio-text">Content</span>
+        <input
+          type="text"
+          id="search_input"
+          placeholder="검색어를 입력하세요."
+        />
+        <button type="button" class="btn btn-primary" id="search_button" value="검색">검색</button>
       </form>
   </div>
 
@@ -79,13 +86,6 @@
     </div>
   </body>
 </html>
-ection>
-  </div>
-
-</body>
-
-</html>
-
 
 
 

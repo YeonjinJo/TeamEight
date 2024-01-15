@@ -18,8 +18,9 @@ fetch(`https://api.themoviedb.org/3/movie/${movieId}?language=en-US`, options)
 function detailMovie(data) {
   let movieContainer = document.querySelector(".movieInfoContainer");
   const movieInfo = document.createElement("div");
-  const movieGenres = data.genres.map((genre) => genre.name);
-  const genreString = movieGenres.join(", ");
+
+  const movieGenres = data.genres.map(genre => genre.name);
+  const genreString = movieGenres.join(', ');
 
   movieInfo.innerHTML = `
   <div class="card mb-3">

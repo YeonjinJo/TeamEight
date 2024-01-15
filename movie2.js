@@ -16,7 +16,6 @@ window.onload = function () {
       loadMovies(data);
     });
 };
-
 function loadMovies(data) {
   for (let i = 0; i < data["results"]["length"]; i++) {
     const title = data["results"][i]["title"];
@@ -47,7 +46,6 @@ function loadMovies(data) {
     element.insertAdjacentHTML("beforeend", tempHtml);
   }
 }
-
 const count = document.getElementById("search_input");
 count.addEventListener("keyup", function (e) {
   let content = $(this).val();
