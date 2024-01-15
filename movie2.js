@@ -39,7 +39,7 @@ function loadMovies(data) {
       <div class="movie_title">${title}</div>
       <div class="movie_overview">${overview}</div>
       <div class="movie_rate">Rating: ${voteRate}</div>
-      <a href="info.html" class="movie_poster">
+      <a href="review.html" class="movie_poster">
         <img src="${base_url}${poster}" alt="Poster [${title}]" style="width: 100%;">
       </a>
     </div>`;
