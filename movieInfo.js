@@ -44,7 +44,8 @@ function detailMovie(data) {
 
   movieContainer.appendChild(movieInfo);
 }
-
-const backMovieInfo = document.getElementById("backBtn").addEventListener("click", () => {
-  javascript:window.history.back();
-})
+const backMovieInfo = document
+  .getElementById("backBtn")
+  .addEventListener("click", () => {
+    javascript: window.history.back();
+  });

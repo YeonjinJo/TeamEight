@@ -9,7 +9,7 @@ const options = {
 const url = "https://api.themoviedb.org/3/movie/top_rated?language=en-US&page=1";
 const base_url = "https://image.tmdb.org/t/p/w500";
 
-window.onload = function() {
+window.onload = function () {
   fetch(url, options)
     .then((res) => res.json())
     .then((data) => {
@@ -36,8 +36,8 @@ function loadMovies(data) {
     <div class="content_${i}" id="card_${i}" style="grid-area: d${i};">
       <div class="movie_title">${title}</div>
       <div class="movie_overview">${overview}</div>
-      <div class="movie_rate">${voteRate}</div>
-      <a href="review.html?${movieId}">
+      <div class="movie_rate">Rating: ${voteRate}</div>
+      <a class="movie_poster" href="review.html?${movieId}">
         <img src="${base_url}${poster}" alt="Poster [${title}]" style="width: 100%;">
       </a>
     </div>`;
@@ -49,11 +49,11 @@ function loadMovies(data) {
 const count = document.getElementById("search_input");
 count.addEventListener("keyup", function (e) {
   let content = $(this).val();
-  $('#counter').html(`(${content.length} / 20)`);    //글자수 실시간 카운팅
+  $("#counter").html(`(${content.length} / 20)`); //글자수 실시간 카운팅
   if (content.length > 20) {
-    alert("최대 20자까지 입력 가능합니다.");  
+    alert("최대 20자까지 입력 가능합니다.");
     $(this).val(content.substring(0, 20));
-    $('#counter').html("(20 / 20)");
+    $("#counter").html("(20 / 20)");
   }
 });
 
