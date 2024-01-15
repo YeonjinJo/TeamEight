@@ -46,16 +46,16 @@ function loadMovies(data) {
     element.insertAdjacentHTML("beforeend", tempHtml);
   }
 }
+
+
 const count = document.getElementById("search_input");
-count.addEventListener("keyup", function (e) {
-  let content = $(this).val();
-  $("#counter").html(`(${content.length} / 20)`); //글자수 실시간 카운팅
-  if (content.length > 20) {
-    alert("최대 20자까지 입력 가능합니다.");
-    $(this).val(content.substring(0, 20));
-    $("#counter").html("(20 / 20)");
+count.addEventListener("input", countFunction);
+function countFunction() {
+  if (this.value.length >= 20) {
+    alert("Less than 20 characters!");
+    this.value = "";
   }
-});
+}
 
 function searchHandler() {
   fetch(url, options).then((res) => res.json()).then((data) => {
