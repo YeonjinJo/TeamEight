@@ -31,7 +31,6 @@ function detailMovie(data) {
     <div class="col-md-8">
       <div class="card-body movie_info_body">
         <h1 class="card-title movie_title">${data.title}</h1>
-        <h5 class="movie_ogtitle">${data.original_title}</h5>
         <p class="card-text movie_overview">Overview : <br>${data.overview}</p>
         <p class="movie_genres">Genres : ${genreString}</p>
         <p class="movie_date">Release Date : ${data.release_date}</p>
