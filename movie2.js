@@ -9,7 +9,7 @@ const options = {
 const url = "https://api.themoviedb.org/3/movie/top_rated?language=en-US&page=1";
 const base_url = "https://image.tmdb.org/t/p/w500";
 
-window.onload = function() {
+window.onload = function () {
   fetch(url, options)
     .then((res) => res.json())
     .then((data) => {
@@ -45,7 +45,16 @@ function loadMovies(data) {
     element.insertAdjacentHTML("beforeend", tempHtml);
   }
 }
-
+const count = document.getElementById("search_input");
+count.addEventListener("keyup", function (e) {
+  let content = $(this).val();
+  $('#counter').html(`(${content.length} / 20)`);    //글자수 실시간 카운팅
+  if (content.length > 20) {
+    alert("최대 20자까지 입력 가능합니다.");  
+    $(this).val(content.substring(0, 20));
+    $('#counter').html("(20 / 20)");
+  }
+});
 
 function searchHandler() {
   fetch(url, options).then((res) => res.json()).then((data) => {
@@ -55,19 +64,6 @@ function searchHandler() {
     const blank_pattern = /^\s+|\s+$/g;
 
     let searchCond = "empty";
-
-    $('#search_input').keyup(function (e){    // 수정해야함
-      console.log(e.target.value)
-      console.log("키업")
-      let content = $(this).val();
-      $('#counter').html("("+content.length+" / 20)");    //글자수 실시간 카운팅
-      if (content.length > 20){
-          alert("최대 20자까지 입력 가능합니다.");
-          $(this).val(content.substring(0, 20));
-          $('#counter').html("(20 / 20자)");
-      }
-    });
-
 
     node_list.forEach((node) => {
       if (node.checked) {
