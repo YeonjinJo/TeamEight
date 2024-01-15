@@ -9,7 +9,7 @@ const options = {
 const url = "https://api.themoviedb.org/3/movie/top_rated?language=en-US&page=1";
 const base_url = "https://image.tmdb.org/t/p/w500";
 
-window.onload = function () {
+window.onload = function() {
   fetch(url, options)
     .then((res) => res.json())
     .then((data) => {
@@ -51,68 +51,59 @@ count.addEventListener("keyup", function (e) {
   let content = $(this).val();
   $('#counter').html(`(${content.length} / 20)`);    //글자수 실시간 카운팅
   if (content.length > 20) {
-    alert("최대 20자까지 입력 가능합니다.");
+    alert("최대 20자까지 입력 가능합니다.");  
     $(this).val(content.substring(0, 20));
     $('#counter').html("(20 / 20)");
   }
 });
 
 function searchHandler() {
-  fetch(url, options)
-    .then((res) => res.json())
-    .then((data) => {
-      const node_list = document.getElementsByName("searchCond");
-      const keyword = document.getElementById("search_input").value;
-      let searchCond = "empty";
-      const special_pattern = /[`~!@#$%^&*|\\\'\";:\/?]/gi;
+  fetch(url, options).then((res) => res.json()).then((data) => {
+    const node_list = document.getElementsByName("searchCond");
+    const keyword = document.getElementById("search_input").value;
+    const special_pattern = /[`~!@#$%^&*|\\\'\";:\/?]/gi;
+    const blank_pattern = /^\s+|\s+$/g;
 
-      node_list.forEach((node) => {
-        if (node.checked) {
-          searchCond = node.value;
-          let checker = false;
-          if (searchCond === "title") {
-            if (special_pattern.test(keyword)) {
-              return alert("특수문자가 입력되었습니다.");
-            }
-            for (let i = 0; i < data["results"]["length"]; i++) {
-              const title = data["results"][i]["title"];
-              const titleWordArray = title.split(" ");
-              const result = titleWordArray.find((t) => {
-                return t === keyword;
-              });
+    let searchCond = "empty";
 
-              const idNum = data["results"][i]["id"];
-              const poster = data["results"][i]["poster_path"];
+    node_list.forEach((node) => {
+      if (node.checked) {
+        searchCond = node.value;
+        let checker = false;
+        if (searchCond === "title") {
+          if (special_pattern.test(keyword)) {
+            return alert('특수문자가 입력되었습니다.');
+          }
+          for (let i = 0; i < data["results"]["length"]; i++) {
+            const title = data["results"][i]["title"];
+            const titleWordArray = title.split(" ");
+            const result = titleWordArray.find(t => { return t === keyword; });
 
-              if (result) {
-                showModal(base_url, poster, title, idNum);
-                checker = true;
-              }
+            const idNum = data["results"][i]["id"];
+            const poster = data["results"][i]["poster_path"];
+
+            if (result) {
+              showModal(base_url, poster, title, idNum);
+              checker = true;
             }
           }
-          if (searchCond === "content") {
-            if (special_pattern.test(keyword)) {
-              return alert("특수문자가 입력되었습니다.");
-            }
+        }
+        if (searchCond === "content") {
+          if (special_pattern.test(keyword)) {
+            return alert('특수문자가 입력되었습니다.');
+          }
+          for (let i = 0; i < data["results"]["length"]; i++) {
+            const idNum = data["results"][i]["id"];
+            const poster = data["results"][i]["poster_path"];
 
-            for (let i = 0; i < data["results"]["length"]; i++) {
-              const idNum = data["results"][i]["id"];
-              const poster = data["results"][i]["poster_path"];
+            const title = data["results"][i]["title"];
+            const overview = data["results"][i]["overview"];
+            const overviewWordArray = overview.split(" ");
+            const result = overviewWordArray.find(t => { return t === keyword; });
 
-              const title = data["results"][i]["title"];
-              const overview = data["results"][i]["overview"];
-              const overviewWordArray = overview.split(" ");
-              const result = overviewWordArray.find((t) => {
-                return t === keyword;
-              });
-
-              if (result) {
-                showModal(base_url, poster, title, idNum);
-                checker = true;
-              }
-            }
-            if (!checker) {
-              alert("검색 결과가 없습니다.");
+            if (result) {
+              showModal(base_url, poster, title, idNum);
+              checker = true;
             }
           }
         }
@@ -124,13 +115,13 @@ function searchHandler() {
           return alert("검색 결과가 없습니다.");
         }
 
-        
+      }
 
     })
 
-  if (searchCond === "empty") { alert("검색 조건을 선택하세요."); }
+    if (searchCond === "empty") { alert("검색 조건을 선택하세요."); }
 
-})
+  })
 }
 
 function showModal(base_url, poster, title, idNum) {
