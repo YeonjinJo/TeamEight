@@ -18,9 +18,8 @@ fetch(`https://api.themoviedb.org/3/movie/${movieId}?language=en-US`, options)
 function detailMovie(data) {
   let movieContainer = document.querySelector(".movieInfoContainer");
   const movieInfo = document.createElement("div");
-
-  const movieGenres = data.genres.map(genre => genre.name);
-  const genreString = movieGenres.join(', ');
+  const movieGenres = data.genres.map((genre) => genre.name);
+  const genreString = movieGenres.join(", ");
 
   movieInfo.innerHTML = `
   <div class="card mb-3">
@@ -44,7 +43,8 @@ function detailMovie(data) {
 
   movieContainer.appendChild(movieInfo);
 }
-
-const backMovieInfo = document.getElementById("backBtn").addEventListener("click", () => {
-  javascript:window.history.back();
-})
+const backMovieInfo = document
+  .getElementById("backBtn")
+  .addEventListener("click", () => {
+    javascript: window.history.back();
+  });

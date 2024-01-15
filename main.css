@@ -1,5 +1,5 @@
 * {
-  font-family: "Merriweather", serif;
+  font-family: "Oswald", sans-serif;
 }
 
 .reload {
@@ -117,30 +117,30 @@ input[type="radio"]:checked {
 
 .search {
   display: flex;
-  flex-direction: column;
+  width: 100%;
+  flex-direction: row;
   align-items: center;
   justify-content: center;
   margin-bottom: 30px;
   padding: 30px;
-  margin-left: 400px;
-  margin-right: 400px;
 }
 
 .content_group {
   width: 90%;
+  border-radius: 20px;
   margin: 0 auto 50px auto;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-color: rgb(255, 255, 255, 0.6);
+  background-color: rgba(239, 210, 84, 0.3);
 }
 
 .grid0 {
   display: grid;
   width: 100%;
   padding: 50px;
-  border-radius: 3%;
+  border-radius: 20px;
   grid-template-columns: repeat(4, 1fr);
   grid-template-rows: repeat(5, 1fr);
   grid-gap: 50px;
@@ -157,7 +157,7 @@ input[type="radio"]:checked {
     display: grid;
     width: 100%;
     padding: 50px;
-    border-radius: 3%;
+    border-radius: 20px;
     grid-template-columns: repeat(4, 1fr);
     grid-template-rows: repeat(5, 1fr);
     grid-gap: 30px;
@@ -169,13 +169,13 @@ input[type="radio"]:checked {
       "d16  d17  d18  d19";
 
     .movie_title {
-      font-size: 15px;
+      font-size: 16px;
       margin-bottom: 30px;
     }
 
     .movie_overview {
       font-size: 14px;
-      margin-bottom: 150px;
+      margin-bottom: 50px;
     }
 
     .movie_rate {
@@ -203,26 +203,41 @@ input[type="radio"]:checked {
       "d18  d19";
 
     .movie_title {
-      font-size: 15px;
+      font-size: 17px;
     }
 
     .movie_overview {
-      font-size: 13px;
+      font-size: 15px;
     }
     .movie_rate {
       margin-bottom: 30px;
-      font-size: 15px;
+      font-size: 17px;
     }
+  }
+
+  .search {
+    display: flex;
+    width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+    flex-direction: row;
+    align-items: center;
+  }
+  #search_input {
+    width: 200px;
+    padding: 5px;
+    margin-left: 0;
+    margin-right: 0;
   }
 }
 
 
 .movie_title {
   text-align: center;
-  font-size: 18px;
-  font-weight: bold;
+  font-size: 23px;
+  font-weight: bolder;
   height: 40px;
-  margin-bottom: 28px;
+  margin-bottom: 60px;
 }
 
 .movie_poster:hover {
@@ -249,14 +264,14 @@ input[type="radio"]:checked {
 
 .movie_overview {
   text-align: justify;
-  font-size: 16px;
+  font-size: 17px;
   height: 200px;
-  margin-bottom: 150px;
+  margin-bottom: 90px;
 }
 
 .movie_rate {
   text-align: center;
-  font-size: 18px;
+  font-size: 21px;
   font-weight: bold;
   height: 30px;
 
