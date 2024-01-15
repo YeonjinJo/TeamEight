@@ -62,7 +62,7 @@ function searchHandler() {
     const keyword = document.getElementById("search_input").value;
     const special_pattern = /[`~!@#$%^&*|\\\'\";:\/?]/gi;
     const blank_pattern = /^\s+|\s+$/g;
-
+    console.log(깃테스트)
     let searchCond = "empty";
 
     node_list.forEach((node) => {
