@@ -68,7 +68,7 @@ main {
   width: 100%;
   margin: 0 auto;
   background: white;
-  border: .5rem solid black;
+  border: .4rem solid black;
   border-radius: .5rem;
   transition: all .3s linear;
   padding: 2rem;
@@ -99,13 +99,15 @@ main {
 }
 
 #review {
-  cursor: progress;
+  cursor: text;
   padding: .25rem;
   padding-left: 1rem;
   background: white;
   border: .1rem solid black;
   border-top-left-radius: .5rem;
   border-bottom-left-radius: .5rem;
+  border-right-color: transparent;
+
   font-size: 1rem;
   flex: 1 0 auto;
   color: black;
@@ -113,6 +115,18 @@ main {
 
 #review::placeholder {
   color: black
+}
+
+#reviewPW {
+  cursor: text;
+  background: white;
+  color: black;
+  border: .1rem solid black;
+  border-left-color: transparent;
+  border-right-color: transparent;
+  flex: .1 0 auto;
+
+  font-size: 1rem;
 }
 
 .submitButton {

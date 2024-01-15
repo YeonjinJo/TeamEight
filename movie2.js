@@ -28,6 +28,7 @@ function loadMovies(data) {
       overview = str.concat(" (...)");
     }
 
+    const movieId = data["results"][i]["id"];
     const poster = data["results"][i]["poster_path"];
     const voteRate = data["results"][i]["vote_average"];
 
@@ -35,8 +36,8 @@ function loadMovies(data) {
     <div class="content_${i}" id="card_${i}" style="grid-area: d${i};">
       <div class="movie_title">${title}</div>
       <div class="movie_overview">${overview}</div>
-      <div class="movie_title">${voteRate}</div>
-      <a href="info.html">
+      <div class="movie_rate">${voteRate}</div>
+      <a href="review.html?${movieId}">
         <img src="${base_url}${poster}" alt="Poster [${title}]" style="width: 100%;">
       </a>
     </div>`;
@@ -50,59 +51,68 @@ count.addEventListener("keyup", function (e) {
   let content = $(this).val();
   $('#counter').html(`(${content.length} / 20)`);    //글자수 실시간 카운팅
   if (content.length > 20) {
-    alert("최대 20자까지 입력 가능합니다.");  
+    alert("최대 20자까지 입력 가능합니다.");
     $(this).val(content.substring(0, 20));
     $('#counter').html("(20 / 20)");
   }
 });
 
 function searchHandler() {
-  fetch(url, options).then((res) => res.json()).then((data) => {
-    const node_list = document.getElementsByName("searchCond");
-    const keyword = document.getElementById("search_input").value;
-    const special_pattern = /[`~!@#$%^&*|\\\'\";:\/?]/gi;
-    const blank_pattern = /^\s+|\s+$/g;
-    console.log(깃테스트)
-    let searchCond = "empty";
+  fetch(url, options)
+    .then((res) => res.json())
+    .then((data) => {
+      const node_list = document.getElementsByName("searchCond");
+      const keyword = document.getElementById("search_input").value;
+      let searchCond = "empty";
+      const special_pattern = /[`~!@#$%^&*|\\\'\";:\/?]/gi;
 
-    node_list.forEach((node) => {
-      if (node.checked) {
-        searchCond = node.value;
-        let checker = false;
-        if (searchCond === "title") {
-          if (special_pattern.test(keyword)) {
-            return alert('특수문자가 입력되었습니다.');
-          }
-          for (let i = 0; i < data["results"]["length"]; i++) {
-            const title = data["results"][i]["title"];
-            const titleWordArray = title.split(" ");
-            const result = titleWordArray.find(t => { return t === keyword; });
+      node_list.forEach((node) => {
+        if (node.checked) {
+          searchCond = node.value;
+          let checker = false;
+          if (searchCond === "title") {
+            if (special_pattern.test(keyword)) {
+              return alert("특수문자가 입력되었습니다.");
+            }
+            for (let i = 0; i < data["results"]["length"]; i++) {
+              const title = data["results"][i]["title"];
+              const titleWordArray = title.split(" ");
+              const result = titleWordArray.find((t) => {
+                return t === keyword;
+              });
 
-            const idNum = data["results"][i]["id"];
-            const poster = data["results"][i]["poster_path"];
+              const idNum = data["results"][i]["id"];
+              const poster = data["results"][i]["poster_path"];
 
-            if (result) {
-              showModal(base_url, poster, title, idNum);
-              checker = true;
+              if (result) {
+                showModal(base_url, poster, title, idNum);
+                checker = true;
+              }
             }
           }
-        }
-        if (searchCond === "content") {
-          if (special_pattern.test(keyword)) {
-            return alert('특수문자가 입력되었습니다.');
-          }
-          for (let i = 0; i < data["results"]["length"]; i++) {
-            const idNum = data["results"][i]["id"];
-            const poster = data["results"][i]["poster_path"];
+          if (searchCond === "content") {
+            if (special_pattern.test(keyword)) {
+              return alert("특수문자가 입력되었습니다.");
+            }
 
-            const title = data["results"][i]["title"];
-            const overview = data["results"][i]["overview"];
-            const overviewWordArray = overview.split(" ");
-            const result = overviewWordArray.find(t => { return t === keyword; });
+            for (let i = 0; i < data["results"]["length"]; i++) {
+              const idNum = data["results"][i]["id"];
+              const poster = data["results"][i]["poster_path"];
 
-            if (result) {
-              showModal(base_url, poster, title, idNum);
-              checker = true;
+              const title = data["results"][i]["title"];
+              const overview = data["results"][i]["overview"];
+              const overviewWordArray = overview.split(" ");
+              const result = overviewWordArray.find((t) => {
+                return t === keyword;
+              });
+
+              if (result) {
+                showModal(base_url, poster, title, idNum);
+                checker = true;
+              }
+            }
+            if (!checker) {
+              alert("검색 결과가 없습니다.");
             }
           }
         }
@@ -114,13 +124,13 @@ function searchHandler() {
           return alert("검색 결과가 없습니다.");
         }
 
-      }
+        
 
     })
 
-    if (searchCond === "empty") { alert("검색 조건을 선택하세요."); }
+  if (searchCond === "empty") { alert("검색 조건을 선택하세요."); }
 
-  })
+})
 }
 
 function showModal(base_url, poster, title, idNum) {

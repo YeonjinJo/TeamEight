@@ -4,6 +4,7 @@
 const form = document.querySelector(".reviewForm");
 const alert = document.querySelector(".alert");
 const review = document.getElementById("review");
+const password = document.getElementById("reviewPW");
 const submitButton = document.querySelector(".submitButton");
 const container = document.querySelector(".reviewContainer");
 const list = document.querySelector(".reviewList");
@@ -16,18 +17,24 @@ let editFlag = false;
 let editID = "";
 
 // 주요 이벤트에 대한 리스너를 설치하여 적절한 함수가 가동되도록 합니다.
+password.addEventListener("input", addPW); // Password 작성
 form.addEventListener("submit", addItem); // Review 작성
 weatherSeoul.addEventListener("click", weatherAddSeoul);
 weatherDaegu.addEventListener("click", weatherAddDaegu);
 window.addEventListener("DOMContentLoaded", setupItems);
 
+function addPW() {
+  this.value = this.value.replace(/[^0-9]/g, ""); // 패스워드에는 숫자만 입력받을 수 있습니다.
+}
+
 function addItem(input) {
   input.preventDefault(); // 인풋 제출 시 자동으로 새로고침 되는 현상을 방지합니다.
   const value = review.value; // 리뷰 내용에 대한 변수를 설정합니다.
+  const pwValue = password.value; // 패스워드 값에 대한 변수를 설정합니다.
   const id = new Date().getTime().toString(); // 고유 ID를 생성합니다.
 
-  // 리뷰가 비어있지 않으면서, editFlag 값이 false이면 리뷰 내용이 신규 추가됩니다.
-  if (value !== "" && !editFlag) {
+  // 리뷰 칸과 패스워드 칸이 비어있지 않으면서, editFlag 값이 false이면 리뷰 내용이 신규 추가됩니다.
+  if (value !== "" && pwValue !== "" && !editFlag) {
     const element = document.createElement("article");
     let attr = document.createAttribute("data-id"); // 데이터셋 어트리뷰트를 생성합니다.
     attr.value = id; // 고유 ID를 부여합니다.
@@ -43,27 +50,28 @@ function addItem(input) {
         </div>`;
 
     const deleteButton = element.querySelector(".deleteButton");
-    deleteButton.addEventListener("click", deleteItem); // 삭제 버튼을 클릭하면 deleteItem 함수를 실행합니다.
+    deleteButton.addEventListener("click", deleteCheck); // 삭제 버튼을 클릭하면 deleteCheck 함수를 실행합니다.
     const editButton = element.querySelector(".editButton");
     editButton.addEventListener("click", editItem); // 수정 버튼을 클릭하면 editItem 함수를 실행합니다.
 
     list.appendChild(element); // 부모 노드(list) 하에 자식 노드(element)를 추가합니다.
 
     displayAlert("Your review's been added to the list"); // 리뷰 추가가 완료되면 알림 문구가 나타납니다.
-    addToLocalStorage(id, value); // 로컬 스토리지에 데이터를 추가합니다.
+    addToLocalStorage(id, value, pwValue); // 로컬 스토리지에 데이터를 추가합니다.
     setBackToDefault(); // 초기화 함수(setBackToDefault)를 실행합니다.
 
-    // 리뷰가 비어있지 않으면서, editFlag 값이 true이면 리뷰 내용이 수정됩니다.
-  } else if (value !== "" && editFlag) {
-    editElement.innerHTML = value; // 수정된 리뷰 내용을 입력합니다.
+    // 리뷰 칸과 패스워드 칸이 비어있지 않으면서, editFlag 값이 true이면 리뷰 내용이 수정됩니다.
+  } else if (value !== "" && pwValue !== "" && editFlag) {
+    editElement.innerHTML = value; // 수정된 리뷰 내용을 입력창에 입력합니다.
     displayAlert("Your review's been changed"); // 리뷰 수정이 완료되면 알림 문구가 나타납니다.
-    editLocalStorage(editID, value); // 로컬 스토리지의 데이터를 수정합니다.
+    editLocalStorage(editID, value, pwValue); // 로컬 스토리지의 데이터를 수정합니다.
     setBackToDefault(); // 초기화 함수(setBackToDefault)를 실행합니다.
 
-    // 리뷰가 비어있으면, 입력을 요구하는 알림 문구가 나타납니다.
+  } else if (value !== "" && pwValue === "") {
+    displayAlert("Please enter your password"); // 패스워드가 비어있으면, 입력을 요구하는 알림 문구가 나타납니다.
   } else {
-    displayAlert("Please enter any comments");
-  }
+    displayAlert("Please enter any comments"); // 리뷰가 비어있으면, 입력을 요구하는 알림 문구가 나타납니다.
+  } 
 }
 
 function displayAlert(text) {
@@ -71,10 +79,21 @@ function displayAlert(text) {
   setTimeout(function () {alert.textContent = "";}, 1500); // 알림 문구는 1.5초 간 유지합니다.
 }
 
-function deleteItem(input) {
-  const element = input.currentTarget.parentElement.parentElement; // 삭제 버튼으로부터 제거 타깃이 될 요소를 찾아갑니다.
-  const id = element.dataset.id; // 제거할 리뷰의 ID 값을 불러옵니다.
+function deleteCheck(input) {
+  const element = input.currentTarget.parentElement.parentElement; 
+  const id = element.dataset.id; 
+  const items = getLocalStorage();
+  
+  const pwInput = prompt("Password");
+  let pwOrigin = null;
 
+  items.map(function (item) {if (item.id === id) {pwOrigin = item.pwValue;}});
+
+  if (pwInput === pwOrigin) {deleteItem(element, id);} 
+  else {displayAlert("Wrong password!");}
+}
+
+function deleteItem(element, id) {
   list.removeChild(element); // 부모 노드(list) 하에 자식 노드(element)를 제거합니다.
 
   displayAlert("The review's been Removed"); // 리뷰 제거가 완료되면 알림 문구가 나타납니다.
@@ -94,13 +113,14 @@ function editItem(input) {
 
 function setBackToDefault() {
   review.value = ""; // 리뷰 입력 창을 빈 칸으로 만듭니다.
+  password.value = "";
   editFlag = false; // 수정 요청을 판별할 플래그 값을 false로 반환합니다.
   editID = ""; // 고유 ID를 할당할 변수를 비웁니다.
   submitButton.textContent = "submit"; // 제출 버튼에 표시되는 문구를 submit으로 설정합니다.
 }
 
-function addToLocalStorage(id, value) {
-  const review = { id, value }; // 리뷰의 고유 ID와 내용을 변수에 할당합니다.
+function addToLocalStorage(id, value, pwValue) {
+  const review = { id, value, pwValue }; // 리뷰의 고유 ID와 내용을 변수에 할당합니다.
   let items = getLocalStorage(); // 로컬 스토리지를 불러옵니다.
   items.push(review); // 리뷰의 고유 ID와 내용을 로컬 스토리지에서 불러온 내용에 푸시합니다.
   localStorage.setItem("list", JSON.stringify(items)); // 로컬 스토리지에 데이터를 저장합니다.
@@ -156,7 +176,7 @@ function createListItem(id, value) {
       </div>
     `;
   const deleteButton = element.querySelector(".deleteButton");
-  deleteButton.addEventListener("click", deleteItem); // 삭제 버튼을 클릭하면 deleteItem 함수를 실행합니다.
+  deleteButton.addEventListener("click", deleteCheck); // 삭제 버튼을 클릭하면 deleteItem 함수를 실행합니다.
   const editButton = element.querySelector(".editButton");
   editButton.addEventListener("click", editItem); // 수정 버튼을 클릭하면 editItem 함수를 실행합니다.
 
@@ -293,4 +313,3 @@ function weatherAddDaegu() {
     });
   });
 }
-
