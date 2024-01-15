@@ -237,7 +237,7 @@ input[type="radio"]:checked {
   font-size: 23px;
   font-weight: bolder;
   height: 40px;
-  margin-bottom: 60px;
+  margin-bottom: 0.2rem !important;
 }
 
 .movie_poster:hover {
@@ -266,7 +266,7 @@ input[type="radio"]:checked {
   text-align: justify;
   font-size: 17px;
   height: 200px;
-  margin-bottom: 90px;
+  margin-bottom: 1rem !important;
 }
 
 .movie_rate {
@@ -342,6 +342,9 @@ body {
   position: relative;
   z-index: 1;
 }
+
+.zoomIn {animation: zoomAndRotate 0.5s ease forwards;}
+.hidden {visibility: hidden;}
 
 /* 낙엽 css */
 .leaves {
