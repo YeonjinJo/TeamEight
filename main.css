@@ -215,14 +215,16 @@ input[type="radio"]:checked {
     }
   }
 
-  .search {
-    display: none;
-    width: 100%;
-    margin-left: 0;
-    margin-right: 0;
-    flex-direction: row;
-    align-items: center;
-  }
+.search {
+  display: none;
+  width: 100%;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 30px;
+  padding: 30px;
+}
+  
   #search_input {
     width: 200px;
     padding: 5px;
