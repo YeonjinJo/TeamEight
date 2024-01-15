@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Oswald&display=swap"
+    />
+    <title>Reviews</title>
+    <link rel="stylesheet" href="reviewStyle.css" />
+  </head>
+  <body>
+    <div class="gridContainer">
+      <section class="sectionCenter" id="section1">
+        <h1>Movie Info</h1>
+      </section>
+      <section class="sectionCenter" id="section2">
+        <form class="reviewForm">
+          <h1>Reviews</h1>
+          <div class="formControl">
+            <input type="text" id="review" placeholder="Leave your message." />
+            <button type="submit" class="submitButton">Submit</button>
+          </div>
+        </form>
+        <div class="reviewContainer"></div>
+        <div class="reviewList"></div>
+        <p class="alert"></p>
+      </section>
+      <section class="sectionCenter" id="section3">
+        <h1>Weather</h1>
+        <div class="weatherButtonGroup">
+          <button class="weatherViewSeoul">Seoul</button>
+          <button class="weatherViewDaegu">Daegu</button>
+        </div>
+        <div class="weatherList"></div>
+      </section>
+    </div>
+    <script src="reviewApp.js"></script>
+  </body>
+</html>
