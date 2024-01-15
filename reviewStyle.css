@@ -91,6 +91,8 @@ main {
   margin-top: 1rem;
   color: black;
   background: lightpink;
+  padding: 0.5px;
+  box-sizing: border-box;
 }
 
 .reviewForm h3 {
@@ -221,7 +223,7 @@ main {
   top: 0;
   border-radius: 10px;
 }
-/* glow */
+
 .weatherViewSeoul::before {
   content: "";
   background: linear-gradient(
@@ -298,7 +300,7 @@ main {
   top: 0;
   border-radius: 10px;
 }
-/* glow */
+
 .weatherViewDaegu::before {
   content: "";
   background: linear-gradient(
@@ -371,7 +373,7 @@ main {
 }
 
 .snow,
-.snow:after,
+.snow::after,
 .snow::before {
   content: "";
   position: absolute;
