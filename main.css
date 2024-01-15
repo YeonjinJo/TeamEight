@@ -216,7 +216,6 @@ input[type="radio"]:checked {
   }
 
 .search {
-  display: none;
   width: 100%;
   flex-direction: row;
   align-items: center;
