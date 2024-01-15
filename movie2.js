@@ -16,6 +16,7 @@ window.onload = function () {
       loadMovies(data);
     });
 };
+
 function loadMovies(data) {
   for (let i = 0; i < data["results"]["length"]; i++) {
     const title = data["results"][i]["title"];
@@ -47,7 +48,6 @@ function loadMovies(data) {
   }
 }
 
-
 const count = document.getElementById("search_input");
 count.addEventListener("input", countFunction);
 function countFunction() {
@@ -72,7 +72,7 @@ function searchHandler() {
         let checker = false;
         if (searchCond === "title") {
           if (special_pattern.test(keyword)) {
-            return alert('특수문자가 입력되었습니다.');
+            return alert('No special characters');
           }
           for (let i = 0; i < data["results"]["length"]; i++) {
             const title = data["results"][i]["title"];
@@ -88,10 +88,12 @@ function searchHandler() {
             }
           }
         }
+        
         if (searchCond === "content") {
           if (special_pattern.test(keyword)) {
-            return alert('특수문자가 입력되었습니다.');
+            return alert('No special characters');
           }
+          
           for (let i = 0; i < data["results"]["length"]; i++) {
             const idNum = data["results"][i]["id"];
             const poster = data["results"][i]["poster_path"];
@@ -109,17 +111,17 @@ function searchHandler() {
         }
 
         if (keyword.replace(blank_pattern, '') === "") {
-          return alert("공백 입니다");
+          return alert("No blank");
         }
         if (!checker) {
-          return alert("검색 결과가 없습니다.");
+          return alert("No search results.");
         }
 
       }
 
     })
 
-    if (searchCond === "empty") { alert("검색 조건을 선택하세요."); }
+    if (searchCond === "empty") { alert("Choose search condition!"); }
 
   })
 }
