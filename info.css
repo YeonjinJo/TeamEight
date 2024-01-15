@@ -1,8 +1,20 @@
-.btn {
+.movie-btn {
   height: 50px;
   width: 200px;
   margin-bottom: 20px;
-  font-size: 20px;
+  background: lightpink;
+  border: 0.1rem solid black;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: all 0.3s linear;
+  font-size: 1.5rem;
+  color: black;
+}
+
+.movie-btn:hover {
+  background: lightsteelblue;
+  color: black;
+  border-color: black;
 }
 
 .movieImg {
@@ -17,6 +29,7 @@
 .movie_ogtitle {
   font-size: 25px;
   margin-bottom: 40px;
+  text-align: center;
 }
 
 .movie_info_body {
@@ -26,4 +39,8 @@
 .movie_overview {
   font-size: 21px;
   margin-bottom: 45px;
+}
+
+.card {
+  border: 1px solid rgba(0, 0, 0, 0.4);
 }

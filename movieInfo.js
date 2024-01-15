@@ -12,14 +12,12 @@ const movieId = location.href.split("?")[1];
 fetch(`https://api.themoviedb.org/3/movie/${movieId}?language=en-US`, options)
   .then((response) => response.json())
   .then((data) => {
-    console.log(data);
     detailMovie(data);
   });
 
 function detailMovie(data) {
   let movieContainer = document.querySelector(".movieInfoContainer");
   const movieInfo = document.createElement("div");
-
   const movieGenres = data.genres.map((genre) => genre.name);
   const genreString = movieGenres.join(", ");
 
@@ -36,7 +34,7 @@ function detailMovie(data) {
         <p class="card-text movie_overview">Overview : <br>${data.overview}</p>
         <p class="movie_genres">Genres : ${genreString}</p>
         <p class="movie_date">Release Date : ${data.release_date}</p>
-        <p class="movie_runtime">Runnig Time : ${data.runtime}</p>
+        <p class="movie_runtime">Runnig Time : ${data.runtime} min</p>
         <p class="card-text movie_id"><small class="text-body-secondary">ID : ${data.id}</small></p>
       </div>
     </div>
@@ -45,8 +43,8 @@ function detailMovie(data) {
 
   movieContainer.appendChild(movieInfo);
 }
-
-const backMovieInfo = document.getElementById("backBtn");
-backMovieInfo.addEventListener("click", () => {
-  javascript: window.history.back();
-});
+const backMovieInfo = document
+  .getElementById("backBtn")
+  .addEventListener("click", () => {
+    javascript: window.history.back();
+  });

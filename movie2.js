@@ -31,6 +31,7 @@ function loadMovies(data) {
       overview = str.concat(" (...)");
     }
 
+    const movieId = data["results"][i]["id"];
     const poster = data["results"][i]["poster_path"];
     const voteRate = data["results"][i]["vote_average"];
 
@@ -39,7 +40,7 @@ function loadMovies(data) {
       <div class="movie_title">${title}</div>
       <div class="movie_overview">${overview}</div>
       <div class="movie_rate">Rating: ${voteRate}</div>
-      <a href="review.html" class="movie_poster">
+      <a class="movie_poster" href="review.html?${movieId}">
         <img src="${base_url}${poster}" alt="Poster [${title}]" style="width: 100%;">
       </a>
     </div>`;
@@ -49,14 +50,27 @@ function loadMovies(data) {
   }
 }
 
+const count = document.getElementById("search_input");
+count.addEventListener("keyup", function (e) {
+  let content = $(this).val();
+  $("#counter").html(`(${content.length} / 20)`); //글자수 실시간 카운팅
+  if (content.length > 20) {
+    alert("최대 20자까지 입력 가능합니다.");
+    $(this).val(content.substring(0, 20));
+    $("#counter").html("(20 / 20)");
+  }
+});
+
 function searchHandler() {
   fetch(url, options)
     .then((res) => res.json())
     .then((data) => {
       const node_list = document.getElementsByName("searchCond");
       const keyword = document.getElementById("search_input").value;
-      let searchCond = "empty";
       const special_pattern = /[`~!@#$%^&*|\\\'\";:\/?]/gi;
+      const blank_pattern = /^\s+|\s+$/g;
+
+      let searchCond = "empty";
 
       node_list.forEach((node) => {
         if (node.checked) {
@@ -86,7 +100,6 @@ function searchHandler() {
             if (special_pattern.test(keyword)) {
               return alert("특수문자가 입력되었습니다.");
             }
-
             for (let i = 0; i < data["results"]["length"]; i++) {
               const idNum = data["results"][i]["id"];
               const poster = data["results"][i]["poster_path"];
@@ -103,16 +116,16 @@ function searchHandler() {
                 checker = true;
               }
             }
-            if (!checker) {
-              alert("검색 결과가 없습니다.");
-            }
+          }
+
+          if (keyword.replace(blank_pattern, "") === "") {
+            return alert("공백 입니다");
+          }
+          if (!checker) {
+            return alert("검색 결과가 없습니다.");
           }
         }
       });
-
-      if (searchCond === "empty") {
-        alert("검색 조건을 선택하세요.");
-      }
     });
 }
 

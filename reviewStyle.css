@@ -74,7 +74,7 @@ main {
   width: 100%;
   margin: 0 auto;
   background: white;
-  border: 0.5rem solid black;
+  border: 0.4rem solid black;
   border-radius: 0.5rem;
   transition: all 0.3s linear;
   padding: 2rem;
@@ -105,16 +105,33 @@ main {
 }
 
 #review {
-  cursor: progress;
+  cursor: text;
   padding: 0.25rem;
   padding-left: 1rem;
   background: white;
   border: 0.1rem solid black;
   border-top-left-radius: 0.5rem;
   border-bottom-left-radius: 0.5rem;
+  border-right-color: transparent;
   font-size: 1rem;
   flex: 1 0 auto;
   color: black;
+}
+
+#review::placeholder {
+  color: black;
+}
+
+#reviewPW {
+  cursor: text;
+  background: white;
+  color: black;
+  border: 0.1rem solid black;
+  border-left-color: transparent;
+  border-right-color: transparent;
+  flex: 0.1 0 auto;
+
+  font-size: 1rem;
 }
 
 .submitButton {
@@ -142,55 +159,6 @@ main {
 
 .showContainer {
   visibility: visible;
-}
-
-.inputBox {
-  position: relative;
-  width: 800px;
-}
-.inputBox input {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid rgba(255, 255, 255, 0.25);
-  background: #1d2b3a;
-  border-radius: 5px;
-  outline: none;
-  color: #fff;
-  font-size: 1em;
-}
-.inputBox span {
-  position: absolute;
-  left: 0;
-  padding: 10px;
-  pointer-events: none;
-  font-size: 1em;
-  color: 1px solid rgba(255, 255, 255, 0.25);
-  text-transform: uppercase;
-  transition: 0.5s;
-}
-
-.reviewinput input:valid ~ span,
-.reviewinput input:focus ~ span {
-  color: lightpink;
-  transform: translateX(10px) translateY(-7px);
-  font-size: 0.65em;
-  padding: 0 10px;
-  background: #1d2b3a;
-  border-left: 1px solid lightpink;
-  border-right: 1px solid lightpink;
-  letter-spacing: 0.2em;
-}
-
-.reviewinput:nth-child(2) input:valid ~ span,
-.reviewinput:nth-child(2) input:focus ~ span {
-  color: #1d2b3a;
-  background: lightpink;
-  border-radius: 2px;
-}
-
-.reviewinput input:valid,
-.reviewinput input:focus {
-  border: 1px solid lightpink;
 }
 
 .reviewItem {
@@ -407,7 +375,7 @@ main {
 .snow::before {
   content: "";
   position: absolute;
-  top: -650px;
+  top: -500px;
   left: 0;
   right: 0;
   bottom: 0;
@@ -451,10 +419,7 @@ main {
   0% {
     transform: translateY(0);
   }
-  50% {
-    transform: translateY(50px);
-  }
   100% {
-    transform: translateY(100px);
+    transform: translateY(500px);
   }
 }

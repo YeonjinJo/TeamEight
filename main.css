@@ -169,13 +169,13 @@ input[type="radio"]:checked {
       "d16  d17  d18  d19";
 
     .movie_title {
-      font-size: 15px;
+      font-size: 16px;
       margin-bottom: 30px;
     }
 
     .movie_overview {
       font-size: 14px;
-      margin-bottom: 150px;
+      margin-bottom: 50px;
     }
 
     .movie_rate {
@@ -203,15 +203,15 @@ input[type="radio"]:checked {
       "d18  d19";
 
     .movie_title {
-      font-size: 15px;
+      font-size: 17px;
     }
 
     .movie_overview {
-      font-size: 13px;
+      font-size: 15px;
     }
     .movie_rate {
       margin-bottom: 30px;
-      font-size: 15px;
+      font-size: 17px;
     }
   }
 
@@ -233,10 +233,10 @@ input[type="radio"]:checked {
 
 .movie_title {
   text-align: center;
-  font-size: 18px;
-  font-weight: bold;
+  font-size: 23px;
+  font-weight: bolder;
   height: 40px;
-  margin-bottom: 28px;
+  margin-bottom: 60px;
 }
 
 .movie_poster:hover {
@@ -263,14 +263,14 @@ input[type="radio"]:checked {
 
 .movie_overview {
   text-align: justify;
-  font-size: 16px;
+  font-size: 17px;
   height: 200px;
-  margin-bottom: 40px;
+  margin-bottom: 90px;
 }
 
 .movie_rate {
   text-align: center;
-  font-size: 18px;
+  font-size: 21px;
   font-weight: bold;
   height: 30px;
 

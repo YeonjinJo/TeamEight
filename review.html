@@ -10,21 +10,39 @@
       href="https://fonts.googleapis.com/css2?family=Oswald&display=swap"
     />
     <title>Reviews</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
     <link rel="stylesheet" href="reviewStyle.css" />
+    <link rel="stylesheet" href="info.css" />
   </head>
   <body>
     <div class="gridContainer">
       <section class="sectionCenter" id="section1">
-        <h1>Movie Info</h1>
+        <button
+          type="button"
+          class="movie-btn btn-outline-warning btn"
+          id="backBtn"
+        >
+          Back to main page
+        </button>
+        <section class="movieInfoContainer"></section>
       </section>
+
       <section class="sectionCenter" id="section2">
         <form class="reviewForm">
           <h1>Reviews</h1>
           <div class="formControl">
-            <div class="inputBox">
-              <input type="text" id="review" />
-              <span>Leave your message</span>
-            </div>
+            <input type="text" id="review" placeholder="Leave your message." />
+            <input
+              type="password"
+              id="reviewPW"
+              placeholder="Password, only 4-8 numbers"
+              pattern="^([0-9_]){4,8}$"
+            />
             <button type="submit" class="submitButton">Submit</button>
           </div>
         </form>
@@ -46,5 +64,6 @@
       <div class="snow"></div>
     </div>
     <script src="reviewApp.js"></script>
+    <script src="movieInfo.js"></script>
   </body>
 </html>
